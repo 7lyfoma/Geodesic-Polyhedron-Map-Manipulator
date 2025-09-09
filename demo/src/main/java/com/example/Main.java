@@ -4,7 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        HelloFX.main(args);
+        // HelloFX.main(args);
+        MoleculeSampleApp.main(args);
     }
 
 }
