@@ -1,4 +1,4 @@
-package sevenlyfoma;
+package io.github.sevenlyfoma;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
