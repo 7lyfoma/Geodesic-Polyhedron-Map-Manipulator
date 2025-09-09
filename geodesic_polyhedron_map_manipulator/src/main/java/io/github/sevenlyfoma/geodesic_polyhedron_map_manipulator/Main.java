@@ -1,4 +1,4 @@
-package io.github.sevenlyfoma;
+package io.github.sevenlyfoma.geodesic_polyhedron_map_manipulator;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         String javaVersion = System.getProperty("java.version");
         String javafxVersion = System.getProperty("javafx.version");
-        Label l = new Label("Hello, JavaFX Main " + javafxVersion + ", running on Java " + javaVersion + ".");
+        Label l = new Label("Hello, JavaFX Main fx " + javafxVersion + ", running on Java " + javaVersion + ".");
         Scene scene = new Scene(new StackPane(l), 640, 480);
         stage.setScene(scene);
         stage.show();

@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.sevenlyfoma</groupId>
-    <artifactId>geodesic-polyhedron-map-manipulator</artifactId>
+    <groupId>io.github.sevenlyfoma.geodesic_polyhedron_map_manipulator</groupId>
+    <artifactId>geodesic_polyhedron_map_manipulator</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -20,7 +20,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>io.github.sevenlyfoma.Main</mainClass>
+                    <mainClass>io.github.sevenlyfoma.geodesic_polyhedron_map_manipulator.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
