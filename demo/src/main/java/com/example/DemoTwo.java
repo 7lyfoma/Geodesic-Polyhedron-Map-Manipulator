@@ -24,8 +24,6 @@ public class DemoTwo extends Application {
         launch(args);
     }
 
-    private final StringProperty greeting = new SimpleStringProperty("");
-    private final StringProperty name = new SimpleStringProperty("");
 
     @Override
     public void start(Stage primaryStage) {
@@ -38,30 +36,6 @@ public class DemoTwo extends Application {
         VBox results = new VBox(new Cylinder(40, 80));
         results.setAlignment(Pos.CENTER);
         return results;
-    }
-
-    // private Node createGreetingButton() {
-    //     Button results = new Button("Hello");
-    //     results.setOnAction(evt -> setGreeting());
-    //     return results;
-    // }
-
-    // private Node createInputRow() {
-    //     TextField textField = new TextField("");
-    //     textField.textProperty().bindBidirectional(name);
-    //     HBox hBox = new HBox(6, new Label("Name:"), textField);
-    //     hBox.setAlignment(Pos.CENTER);
-    //     return hBox;
-    // }
-
-    // private Node createOutputLabel() {
-    //     Label results = new Label("");
-    //     results.textProperty().bind(greeting);
-    //     return results;
-    // }
-
-    private void setGreeting() {
-        greeting.set("Hello " + name.get());
     }
 
 }

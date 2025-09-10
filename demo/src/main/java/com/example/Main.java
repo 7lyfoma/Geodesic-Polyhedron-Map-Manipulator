@@ -6,7 +6,7 @@ public class Main {
 
         // HelloFX.main(args);
         // DemoOne.main(args);
-        DemoTwo.main(args);
+        DemoThree.main(args);
     }
 
 }
