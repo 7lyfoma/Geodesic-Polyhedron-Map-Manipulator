@@ -1,6 +1,11 @@
 
 package com.example;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -17,6 +22,7 @@ import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -24,6 +30,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
@@ -33,8 +40,9 @@ import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
+import javafx.embed.swing.SwingFXUtils;
 
-public class DemoThree extends Application {
+public class DemoFour extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -60,8 +68,37 @@ public class DemoThree extends Application {
         // Shape3D testshape = new Cylinder(10, 10);
         // Shape3D testshape = new Box(10,10,10);
         Shape3D testshape = new Sphere(10);
-        testshape.setMaterial(new PhongMaterial(Color.ORANGE));
-        testshape.setDrawMode(DrawMode.LINE);
+        
+        
+        //Create Material
+        PhongMaterial mat = new PhongMaterial();
+        Image diffuseMap = new Image("Zebra_print_pattern.png");
+        // Image normalMap = new Image("Zebra_print_pattern.png");
+
+        mat.setDiffuseMap(diffuseMap);
+        // // mat.setBumpMap(normalMap);
+        // mat.setSpecularColor(Color.WHITE);
+
+        testshape.setMaterial(mat);
+        // testshape.setMaterial(new PhongMaterial(Color.ORANGE));
+        // testshape.setDrawMode(DrawMode.LINE);
+
+        Image i =  diffuseMap; //(new PhongMaterial(Color.ORANGE)).getDiffuseMap();
+
+        File f = new File("test.png");
+
+        try {
+            Boolean x = ImageIO.write(SwingFXUtils.fromFXImage(i, null), "png", f);
+            System.out.println(x);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        System.out.println(f.getAbsolutePath());
+
+        
+
 
 
         // Create and position camera

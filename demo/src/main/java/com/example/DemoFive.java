@@ -1,6 +1,11 @@
 
 package com.example;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -17,6 +22,7 @@ import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -24,17 +30,22 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.DrawMode;
+import javafx.scene.shape.Mesh;
+import javafx.scene.shape.MeshView;
 import javafx.scene.shape.Shape3D;
 import javafx.scene.shape.Sphere;
+import javafx.scene.shape.TriangleMesh;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
+import javafx.embed.swing.SwingFXUtils;
 
-public class DemoThree extends Application {
+public class DemoFive extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -57,12 +68,68 @@ public class DemoThree extends Application {
 
    public Parent createContent(){
  
-        // Shape3D testshape = new Cylinder(10, 10);
-        // Shape3D testshape = new Box(10,10,10);
+       
         Shape3D testshape = new Sphere(10);
-        testshape.setMaterial(new PhongMaterial(Color.ORANGE));
+        testshape.setMaterial(new PhongMaterial(Color.BLUE));
         testshape.setDrawMode(DrawMode.LINE);
 
+
+        TriangleMesh mesh = new TriangleMesh();
+        float width = 20;
+        float height = 20;
+        
+         float[] points = {
+            -width/2,  height/2, 0, // idx p0
+            -width/2, -height/2, 0, // idx p1
+             width/2,  height/2, 0, // idx p2
+             width/2, -height/2, 0  // idx p3
+        };
+        float[] texCoords = {
+            1, 1, // idx t0
+            1, 0, // idx t1
+            0, 1, // idx t2
+            0, 0  // idx t3
+        };
+        /**
+         * points:
+         * 1      3
+         *  -------   texture:
+         *  |\    |  1,1    1,0
+         *  | \   |    -------
+         *  |  \  |    |     |
+         *  |   \ |    |     |
+         *  |    \|    -------
+         *  -------  0,1    0,0
+         * 0      2
+         *
+         * texture[3] 0,0 maps to vertex 2
+         * texture[2] 0,1 maps to vertex 0
+         * texture[0] 1,1 maps to vertex 1
+         * texture[1] 1,0 maps to vertex 3
+         * 
+         * Two triangles define rectangular faces:
+         * p0, t0, p1, t1, p2, t2 // First triangle of a textured rectangle 
+         * p0, t0, p2, t2, p3, t3 // Second triangle of a textured rectangle
+         */
+        int[] faces = {
+            2, 2, 1, 1, 0, 0,
+            2, 2, 3, 3, 1, 1,
+            2, 3, 0, 2, 1, 0,
+            2, 3, 1, 0, 3, 1
+        };
+
+        mesh.getPoints().setAll(points);
+        mesh.getTexCoords().setAll(texCoords);
+        mesh.getFaces().setAll(faces);
+
+        MeshView mv = new MeshView(mesh);
+
+        PhongMaterial mat = new PhongMaterial();
+        Image diffuseMap = new Image("Zebra_print_pattern.png");
+        mat.setDiffuseMap(diffuseMap);
+        mv.setMaterial(mat);
+
+        
 
         // Create and position camera
         PerspectiveCamera camera = new PerspectiveCamera(true);
@@ -77,7 +144,8 @@ public class DemoThree extends Application {
         // Build the Scene Graph
         Group root = new Group();       
         root.getChildren().add(camera);
-        root.getChildren().add(testshape);
+        // root.getChildren().add(testshape);
+        root.getChildren().add(mv);
  
         // Use a SubScene       
         SubScene subScene = new SubScene(root, 800,800);
